@@ -14,10 +14,11 @@
 */
 class Config {
 	// Data
-protected:va
+protected:
 	std::string m_Delimiter;  //!< separator between key and value
 	std::string m_Comment;    //!< separator between value and comments
 	std::map<std::string,std::string> m_Contents;  //!< extracted keys and values
+	std::string mFileName;
 
 	typedef std::map<std::string,std::string>::iterator mapi;
 	typedef std::map<std::string,std::string>::const_iterator mapci;
@@ -49,6 +50,15 @@ public:
 	std::string SetComment( const std::string& in_s )
 	{ std::string old = m_Comment;  m_Comment =  in_s;  return old; }
 
+	void Commit() {
+		std::ofstream out(this->mFileName);
+
+		if (!out) throw File_not_found(this->mFileName);
+
+		out << (*this);
+		out.close();
+	}
+	
 	// Write or read configuration
 	friend std::ostream& operator<<( std::ostream& os, const Config& cf );
 	friend std::istream& operator>>( std::istream& is, Config& cf );
@@ -187,4 +197,3 @@ void Config::Add( const std::string& in_key, const T& value )
 	m_Contents[key] = v;
 	return;
 }
-
