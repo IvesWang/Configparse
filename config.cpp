@@ -52,7 +52,7 @@ std::ostream& operator<<( std::ostream& os, const Config& cf )
 		p != cf.m_Contents.end();
 		++p )
 	{
-		os << p->first << " " << cf.m_Delimiter << " ";
+		os << p->first << cf.m_Delimiter;
 		os << p->second << std::endl;
 	}
 	return os;
