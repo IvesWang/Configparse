@@ -9,8 +9,9 @@ Config::Config( string filename, string delimiter,
 			   string comment )
 			   : m_Delimiter(delimiter), m_Comment(comment)
 {
-	// Construct a Config, getting keys and values from given file
-
+	// Construct a Config, getting keys and values from given file				  
+	this->mFileName = filename;
+				   
 	std::ifstream in( filename.c_str() );
 
 	if( !in ) throw File_not_found( filename ); 
@@ -154,4 +155,3 @@ void Config::ReadFile( string filename, string delimiter,
 
 	in >> (*this);
 }
-
